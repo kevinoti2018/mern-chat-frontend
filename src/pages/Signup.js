@@ -1,16 +1,18 @@
 import {useState} from 'react'
 import { Col, Form, Row,Container,Button } from 'react-bootstrap'
 // import Form from 'react-bootstrap/Form'
-import {Link} from 'react-router-dom'
+import {Link,useNavigate} from 'react-router-dom'
 import './Signup.css'
 import bot from '../assets/r2.jpg'
+import {useSignupUserMutation} from "../services/appApi"
 
 
 const Signup = () => {
   const[email ,setEmail]= useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState("")
-
+  const navigate = useNavigate()
+  const[signupUser,{isLoading, error}] = useSignupUserMutation();
 
   //image upload states
   const [image, setImage] = useState(null)
@@ -27,7 +29,7 @@ const Signup = () => {
     }
   } 
   async function uploadImage(){
-    const data =  new FormData
+    const data =  new FormData()
     data.append('file',image);
     data.append('upload_preset','tvfut1sh')
     try{
@@ -51,7 +53,13 @@ const Signup = () => {
     if (!image) return alert('please upload your profile image')
     const url = await uploadImage(image)
     console.log(url);
-    //sign in user
+    //sign up user
+    signupUser({name,email,password,picture:url}).then((data)=>{
+      if(data){
+        console.log(data)
+        navigate('/chat')
+      }
+    })
   }
   return (
 <Container>
