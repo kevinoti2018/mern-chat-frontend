@@ -7,29 +7,30 @@ import logo from '../assets/logos.png'
 const Navigation = () => {
   const user  = useSelector( (state)=> state.user )
   const [logoutUser] = useLogoutUserMutation()
- async function handleLogout(e){
-    e.preventDefault()
-    await logoutUser(user)
-    //redirect to home page
-    window.location.replace('/')
-  }
+
+  async function handleLogout(e){
+      e.preventDefault()
+      await logoutUser(user)
+      //redirect to home page
+      window.location.replace('/')
+    }
   return (
     <Navbar bg="light" expand="lg">
     <Container>
       <LinkContainer to= '/'>
       <Navbar.Brand >
-          <img src={logo} style={ {width :120, height:50} }/>
+          <img src={logo} style={ {width :130, height:60} }/>
       </Navbar.Brand>
       </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="ms-auto">
          {!user && (
-          <LinkContainer to = '/login'>
-          <Nav.Link >Login</Nav.Link>
+          <LinkContainer to = '/login' style={{backgroundColor:'#0d6efd' ,color:'white' ,borderRadius:'5px' ,padding:'3', margin:'5px'}}>
+          <Nav.Link  >Login</Nav.Link>
           </LinkContainer>
            )} 
-          <LinkContainer to = '/chat'>
+          <LinkContainer to = '/chat' style={{borderRadius:'5px', backgroundColor:'white', color:'#0d6efd'}}>
           <Nav.Link >Chat</Nav.Link>
           </LinkContainer>
           {user &&( 
@@ -39,7 +40,10 @@ const Navigation = () => {
             {user.name}
             </>
           } id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+            <LinkContainer to = '/support'>
+            <NavDropdown.Item href="">Support</NavDropdown.Item>
+           </LinkContainer>
+           
             <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
             <NavDropdown.Item >

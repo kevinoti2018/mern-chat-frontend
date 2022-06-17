@@ -1,5 +1,5 @@
 import {useContext, useState} from 'react'
-import { Col, Form, Row,Container,Button } from 'react-bootstrap'
+import { Col, Form, Row,Container,Button,Spinner } from 'react-bootstrap'
 import {Link,useNavigate} from 'react-router-dom'
 import './Login.css'
 import {useLoginUserMutation} from '../services/appApi'
@@ -17,10 +17,12 @@ function handleLogin(e){
   //login logic
   LoginUser({email,password}).then((data)=>{
     if(data){
+      console.log(data);
       //socket work
       socket.emit('new-user')
       //navigate to the chat 
-      navigate('/chat')
+
+      navigate("/chat")
     }
   })
 
@@ -33,6 +35,7 @@ function handleLogin(e){
     <Col md={7} className="d-flex align-items-center justify-content-center flex-direction-column">
       <Form style={{width:'80%', maxWidth:500}} onSubmit={handleLogin}>
       <Form.Group className="mb-3" controlId="formBasicEmail">
+        {error && <p className='alert alert-danger'>{error.data}</p>}
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" 
         onChange={(e)=>{setEmail(e.target.value)}} value={email} required/>
@@ -48,7 +51,7 @@ function handleLogin(e){
          value={password} required/>
       </Form.Group>
       <Button variant="primary" type="submit">
-        Login
+       {isLoading?<Spinner animation="grow"/> :"Login"}
       </Button>
       <div className='py-4'>
         <p className='text-center'>Don't have an account? <Link to='/signup'>Signup</Link></p>

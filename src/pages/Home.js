@@ -10,7 +10,7 @@ const Home = () => {
           <h1>Share the world with your friends</h1>
           <p> Chat app That lets you connect to the world</p>
           <LinkContainer to='/chat'>
-            <Button variant = 'success'>Get started <i className='fas fa-comments home-message-icon'></i></Button>
+            <Button variant = 'primary'>Get started <i className='fas fa-comments home-message-icon'></i></Button>
           </LinkContainer>
         </div>
       </Col>

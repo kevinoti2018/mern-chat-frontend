@@ -6,6 +6,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Chat from './pages/Chat'
 import Signup from './pages/Signup'
+import Support from './pages/Support.js'
 import { useSelector } from 'react-redux';
 import {AppContext,socket} from './context/appContext';
 
@@ -31,7 +32,7 @@ function App() {
         </>
         )}
         <Route path='/chat' element ={<Chat/>} />
-      
+        <Route path='/support' element ={<Support/>} />
       </Routes>
     </BrowserRouter>
     </AppContext.Provider>
